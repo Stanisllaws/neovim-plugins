@@ -184,6 +184,19 @@ vim.api.nvim_create_user_command('Pomocv', function()
   vim.cmd '!vimh'
 end, { desc = 'Run vimh command' })
 
+-- :Tf <filename> - open file in new tab
+vim.api.nvim_create_user_command('Tf', function(opts)
+  vim.cmd('tabnew ' .. opts.args)
+end, { nargs = 1, desc = 'Open file in new tab' })
+
+-- :Nt - open new empty tab
+vim.api.nvim_create_user_command('Tn', function()
+  vim.cmd 'tabnew'
+end, { nargs = 0, desc = 'Open new empty tab' })
+--vim.api.nvim_create_user_command('Nn', function()
+--vim.cmd 'tabnew'
+--end, { nargs = 0, desc = 'Open new empty tab' })
+
 -- Compile C file with gcc
 vim.api.nvim_create_user_command('Makec', function()
   local file = vim.fn.expand '%'
