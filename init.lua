@@ -1,5 +1,6 @@
 --[[
-
+__
+--------------------RAFAŁ BURDZY
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -165,6 +166,38 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+-- [[ Custom Commands ]]
+-- Create custom command :Vimh that runs vimh shell command
+-----Pomoc NixOS commands
+-- ### MOJE KOMANDY DO NVIM ###
+
+vim.api.nvim_create_user_command('Vimhelp', function()
+  vim.cmd '!vimh'
+end, { desc = 'Run vimh command' })
+-- OR Pomocnix
+vim.api.nvim_create_user_command('Pomocnix', function()
+  vim.cmd '!pomoc'
+end, { desc = 'Run pomoc command' })
+
+-- Vim pomoc
+vim.api.nvim_create_user_command('Pomocv', function()
+  vim.cmd '!vimh'
+end, { desc = 'Run vimh command' })
+
+-- Compile C file with gcc
+vim.api.nvim_create_user_command('Makec', function()
+  local file = vim.fn.expand '%'
+  local output = vim.fn.expand '%:r'
+  vim.cmd('!gcc ' .. file .. ' -o ' .. output)
+end, { desc = 'Compile C file with gcc' })
+--OR
+vim.api.nvim_create_user_command('Mkc', function()
+  vim.cmd 'Makec'
+end, { desc = 'Run Makec command' })
+
+--vim.api.nvim_create_user_command('Rebuildnix', function()
+--vim.cmd('!rebuildnix')
+--end, { desc = 'Run rebuildnix command' })
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -172,6 +205,8 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+--pomoc
+vim.keymap.set('n', '<F2>', '<Cmd>Pomocv<CR>', { desc = 'Run Pomocv' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -713,15 +748,13 @@ require('lazy').setup({
       --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-      })
+      -- NOTE: On NixOS, don't use Mason for LSP servers - use system packages instead
+      local ensure_installed = {} -- Empty on NixOS
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
+        automatic_installation = false, -- Disable on NixOS - use system packages instead
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -941,21 +974,22 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
+    config = function()
+      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+      require('nvim-treesitter.config').setup {
+        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+        -- Autoinstall languages that are not installed
+        auto_install = true,
+        highlight = {
+          enable = true,
+          -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+          --  If you are experiencing weird indenting issues, add the language to
+          --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+          additional_vim_regex_highlighting = { 'ruby' },
+        },
+        indent = { enable = true, disable = { 'ruby' } },
+      }
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
