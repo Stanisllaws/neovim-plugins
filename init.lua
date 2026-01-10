@@ -172,22 +172,17 @@ vim.o.confirm = true
 -- ### MOJE KOMANDY DO NVIM ###
 
 vim.api.nvim_create_user_command('Vimhelp', function()
-  vim.cmd '!vimh'
-end, { desc = 'Run vimh command' })
--- OR Pomocnix
-vim.api.nvim_create_user_command('Pomocnix', function()
-  vim.cmd '!pomoc'
-end, { desc = 'Run pomoc command' })
-
--- Vim pomoc
-vim.api.nvim_create_user_command('Pomocv', function()
-  vim.cmd '!vimh'
-end, { desc = 'Run vimh command' })
+  vim.cmd '!bat ~/.config/nvim/vimhelp'
+end, { desc = 'Run bat ~/.config/nvim/vimhelp command' })
 
 -- :Tf <filename> - open file in new tab
 vim.api.nvim_create_user_command('Tf', function(opts)
   vim.cmd('tabnew ' .. opts.args)
 end, { nargs = 1, desc = 'Open file in new tab' })
+-- T1 first tab
+vim.api.nvim_create_user_command('T1', function()
+  vim.cmd 'tabfirst'
+end, { nargs = 0, desc = 'Open first tab' })
 
 -- :Nt - open new empty tab
 vim.api.nvim_create_user_command('Tn', function()

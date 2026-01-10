@@ -1,0 +1,147 @@
+Komandy vim
+
+1.horizontal split :split or :sp
+vertiacl split :vsplit or :vs
+optinal ex. :vs Hello_World.txt
+
+2.Command and shellc scripts :!
+
+3. Undo 
+-:earlier 10m or :later 5m 
+-:u or ctrl + r
+
+SEARCH BY WORD or LETER or CHARACTER: "/" ex. "/k" press "Enter" will hight light all words with k in it
+
+NEW TAB :tabnew :tabnew [filename]
+gt to go to the next tab.
+
+gT to go to the previous tab.
+
+#gt (replace # with a number) to go to a specific tab (e.g., 1gt for the first tab).
+
+:Tn  or :tabnext or :tabn  for next tab, :tabprevious or :tabp for previous tab.
+
+:T1 or :tabfirst to go to the first tab, :tablast to go to the last tab.
+
+:Tf name_of_file or :tabnew name_of_file  
+
+
+
+Modes
+Keybinding	Description
+Esc	Enter Normal Mode
+i, I	Enter Insert Mode (start, start of line)
+a, A	Enter Insert Mode (after cursor, end of line)
+v	Enter Visual Mode (character)
+V	Enter Visual Line Mode
+<C-v>	Enter Visual Block Mode
+:	Enter Command Mode
+Navigation
+Keybinding	Description
+h,j,k,l	Move left, down, up, right
+w	Next word
+b	Previous word
+e	End of word
+0	Start of line
+^	First non-whitespace character
+$	End of line
+gg	Go to first line
+G	Go to last line
+<C-d>	Scroll down
+<C-u>	Scroll up
+<C-w>h	Go to left window
+<C-w>l	Go to right window
+gd	Go to definition
+File Operations and Search
+Keybinding	Description
+<leader>ff	Find files (root dir)
+<leader>fF	Find files (cwd)
+<leader>sg	Live grep (root dir)
+<leader>sG	Live grep (cwd)
+<leader>sw	Search word (root dir)
+<leader>sW	Search word (cwd)
+<leader>e	File explorer (root dir)
+<leader>E	File explorer (cwd)
+<leader>gf	File git history (root dir)
+<leader>gF	File git history (cwd)
+<leader>gg	Lazygit (root dir)
+<leader>gG	Lazygit (cwd)
+<leader>ft	Terminal (root dir)
+<leader>fT	Terminal (cwd)
+File Management
+Keybinding	Description
+:e filename	Open file by name
+:w	Save file
+:w!	Force save file
+:source %	Reload current file
+ZZ	Save & Close Vim
+Buffer/Window Management
+Keybinding	Description
+<leader>,	Browse/switch buffers
+<leader>|	Split vertically
+<leader>-	Split horizontally
+<leader>bd	Close current buffer
+<leader>bD	Close buffer and window
+<leader>qq	Quit all/close all buffers
+<leader>bo	Close all buffers except current
+:%bd	Close all buffers
+:%bd!	Force close all buffers
+Text Operations
+Keybinding	Description
+dd	Delete current line
+yy	Copy entire line
+vd	Delete selected text
+vy	Yank (copy) selected text
+ggyG	Copy whole content
+ggdG	Delete whole content
+u	Undo
+<C-r>	Redo
+.	Repeat Last Command
+Objects and Motions
+Keybinding	Description
+dw	Delete word
+cw	Change word
+yiw	Yank inside word
+ciw	Change inside word
+diq	Delete inside quotes
+ca{	Change around braces
+ci(	Change inside parenthesis
+yap	Yank paragraph
+ct"	Change To Next " (leaving the ")
+df|	Delete to Next | (including the |)
+LSP/Code Features
+Keybinding	Description
+<leader>cr	Rename all occurrences
+<leader>cc	Code actions
+<leader>xx	Trouble plugin (diagnostics)
+<leader>cd	Line diagnostics
+<leader>cD	Buffer diagnostics
+Search and Replace
+Keybinding	Description
+<leader>sr	Global search and replace
+f<char>	Find character forward
+F<char>	Find character backward
+t<char>	To character forward
+T<char>	To character backward
+AI/Copilot
+Keybinding	Description
+<leader>a	AI functionality
+<leader>aa	Toggle Copilot Chat sidebar
+<leader>aq	Quick chat
+<leader>at	Turn on Avante AI
+UI/Plugin Management
+Keybinding	Description
+<leader>e	Show file tree
+<leader>l	Open Lazy plugin manager
+<leader>uC	Change color theme
+<leader>sk	Find keymaps
+:Lazy sync	Sync/reload plugins
+Note:
+
+<leader> is typically the space bar
+<C-x> means Ctrl + x (hold Control and press x)
+<C-d> means scroll down (Ctrl+d)
+<C-w> means window command prefix (Ctrl+w)
+<C-u> means scroll up (Ctrl+u)
+cwd means current working directory
+root dir means project root directory
